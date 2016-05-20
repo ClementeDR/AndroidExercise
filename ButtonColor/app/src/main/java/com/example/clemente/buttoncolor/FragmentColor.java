@@ -27,7 +27,7 @@ public class FragmentColor extends Fragment {
 
 
     public interface IOUpdateColor{
-        public void changeColor(String aButtonText);
+        void changeColor(String aButtonText);
     }
     private IOUpdateColor mUpdate = new IOUpdateColor() {
         @Override
@@ -67,7 +67,10 @@ public class FragmentColor extends Fragment {
         View vView =inflater.inflate(R.layout.fragment_fragment_color, container, false);
 
         final TextView vText = (TextView) vView.findViewById(R.id.etichetta);
+
+
         Bundle bundle = getArguments();
+        //posso evitare di controllare,  da eliminare dopo
         if(bundle != null){
             vText.setText(vText.getText() + bundle.getString("testo"));
         }
@@ -91,7 +94,7 @@ public class FragmentColor extends Fragment {
         vBtnC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mUpdate.changeColor("C");
+                mUpdate.changeColor("C");   
             }
         });
 

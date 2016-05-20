@@ -49,23 +49,23 @@ public class FirstDialog extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-       builder.setMessage(getArguments().getString("NAME"));
-       builder.setPositiveButton("Positivo", new DialogInterface.OnClickListener() {
+       builder.setMessage(getArguments().getString("NAME"))
+        .setPositiveButton("Positivo", new DialogInterface.OnClickListener() {
            @Override
            public void onClick(DialogInterface dialog, int id) {
                Log.d("DIALOG", "" + id);
                listener.onButtonSelected("+++");
            }
-       });
-        builder.setNegativeButton("Negativo", new DialogInterface.OnClickListener() {
+       })
+        .setNegativeButton("Negativo", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
                 Log.d("DIALOG", "" + id);
                 listener.onButtonSelected("---");
 
             }
-        });
-        builder.setNeutralButton("Neutral", new DialogInterface.OnClickListener() {
+        })
+        .setNeutralButton("Neutral", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
                 Log.d("DIALOG", "" + id);

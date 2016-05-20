@@ -8,6 +8,7 @@ public class MainActivity extends AppCompatActivity implements FragmentColor.IOU
     private static final String TAG_FRAGMENT = "myFragment";
     private boolean mHasDetail = false;
     private ButtonFragment mButtonFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,21 +17,35 @@ public class MainActivity extends AppCompatActivity implements FragmentColor.IOU
         if(findViewById(R.id.detail_container) != null){
             mHasDetail = true;
         }
-        mButtonFragment = ButtonFragment.getInstance();
-        if(getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT) == null){
+        mButtonFragment = (ButtonFragment) getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT);
+        if(mButtonFragment == null){
+            mButtonFragment = ButtonFragment.getInstance();
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.button_container, mButtonFragment, TAG_FRAGMENT)
                     .commit();
         }
+
     }
 
     @Override
     public void update(String value) {
         if(mHasDetail){
-            getSupportFragmentManager().beginTransaction().replace(R.id.detail_container, FragmentColor.getInstance(value)).commit();
-        }else {
-            getSupportFragmentManager().beginTransaction().replace(R.id.button_container, FragmentColor.getInstance(value)).addToBackStack("pippoo").commit();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.detail_container, FragmentColor.getInstance(value))
+                    .commit();
+        } else {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.button_container, FragmentColor.getInstance(value))
+                    .addToBackStack("pippoo")
+                    .commit();
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 
     @Override

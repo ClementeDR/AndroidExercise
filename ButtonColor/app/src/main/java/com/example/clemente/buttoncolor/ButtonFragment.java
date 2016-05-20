@@ -18,12 +18,19 @@ import java.util.Random;
  */
 public class ButtonFragment extends Fragment {
 
+    private static final String COLOR_A = "COLOR_A";
+    private static final String COLOR_B = "COLOR_B";
+    private static final String COLOR_C = "COLOR_C";
+
     private Button vBtnA;
     private Button vBtnB;
     private Button vBtnC;
 
+    private int colorA, colorB, colorC;
 
-    public int randomColor(){
+
+
+    private int randomColor(){
         Random rand = new Random();
         return Color.rgb(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
     }
@@ -32,23 +39,30 @@ public class ButtonFragment extends Fragment {
         switch (aButtonText){
             case "A":
             {
-                vBtnA.setBackgroundColor(randomColor());
+                colorA = randomColor();
+                vBtnA.setBackgroundColor(colorA);
                 break;
             }
             case "B":
             {
-                vBtnB.setBackgroundColor(randomColor());
+                colorB = randomColor();
+                vBtnB.setBackgroundColor(colorB);
                 break;
             }
             case  "C":
             {
-                vBtnC.setBackgroundColor(randomColor());
+                colorC = randomColor();
+                vBtnC.setBackgroundColor(colorC);
                 break;
             }
             default:{
-                vBtnA.setBackgroundColor(randomColor());
-                vBtnB.setBackgroundColor(randomColor());
-                vBtnC.setBackgroundColor(randomColor());
+
+                colorA = randomColor();
+                colorB = randomColor();
+                colorC = randomColor();
+                vBtnA.setBackgroundColor(colorA);
+                vBtnB.setBackgroundColor(colorB);
+                vBtnC.setBackgroundColor(colorC);
                 break;
 
             }
@@ -56,7 +70,7 @@ public class ButtonFragment extends Fragment {
     }
 
     public interface IUpdateText{
-        public void update(String value);
+        void update(String value);
 
     }
     private IUpdateText mUpdate = new IUpdateText() {
@@ -69,6 +83,7 @@ public class ButtonFragment extends Fragment {
 
     public ButtonFragment() {
         // Required empty public constructor
+        colorA = colorB = colorC = randomColor();
     }
 
     public static ButtonFragment getInstance(){
@@ -78,6 +93,10 @@ public class ButtonFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        outState.putInt(COLOR_A, colorA);
+        outState.putInt(COLOR_B, colorB);
+        outState.putInt(COLOR_C, colorC);
+
     }
 
     @Override
@@ -91,26 +110,32 @@ public class ButtonFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View vView = inflater.inflate(R.layout.fragment_button, container, false);
 
+        View vView = inflater.inflate(R.layout.fragment_button, container, false);
         vBtnA = (Button) vView.findViewById(R.id.btnA);
+        vBtnB = (Button) vView.findViewById(R.id.btnB);
+        vBtnC = (Button) vView.findViewById(R.id.btnC);
+        if(savedInstanceState != null){
+            colorA = savedInstanceState.getInt(COLOR_A);
+            vBtnA.setBackgroundColor(colorA);
+            colorB = savedInstanceState.getInt(COLOR_B);
+            vBtnB.setBackgroundColor(colorB);
+            colorC = savedInstanceState.getInt(COLOR_C);
+            vBtnC.setBackgroundColor(colorC);
+        }
+
         vBtnA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mUpdate.update("A");
             }
         });
-
-        vBtnB = (Button) vView.findViewById(R.id.btnB);
         vBtnB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mUpdate.update("B");
             }
         });
-
-        vBtnC = (Button) vView.findViewById(R.id.btnC);
         vBtnC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

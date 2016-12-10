@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Geofence</string>
+    <string name="not_connected">Not Connected</string>
+    <string name="geofence_transition_invalid_type">Geofence Transition Invalid Type</string>
+    <string name="geofence_transition_notification_text">Geofence Transition Notification Text</string>
+    <string name="geofence_transition_entered">Geofence Transition Entered</string>
+    <string name="geofence_transition_exited">Geofence Transition Exitedt</string>
+    <string name="unknown_geofence_transition">Geofence Transition Unknown</string>
+    <string name="geofence_not_available">Geofence Not Available</string>
+    <string name="geofence_too_many_geofences">Geofence Too Many Geofences</string>
+    <string name="geofence_too_many_pending_intents">Geofence Too Many Pending Intents</string>
+    <string name="unknown_geofence_error">Unknown Geofence Error</string>
+    <string name="geofences_added">Geofence Added</string>
+    <string name="geofences_removed">Geofence Removed</string>
+
+
+
+</resources>

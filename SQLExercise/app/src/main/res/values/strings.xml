@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SQLExercise</string>
+    <string name="delete_string">Vuoi eliminare questo contatto?</string>
+    <string name="update_string">Modifica</string>
+    <string name="surname">surname</string>
+    <string name="name">name</string>
+    <string name="new_contact">Nuovo contatto</string>
+    <string name="danger">ATTENZIONE</string>
+</resources>

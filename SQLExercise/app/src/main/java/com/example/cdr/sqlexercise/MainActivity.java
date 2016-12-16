@@ -14,12 +14,12 @@ public class MainActivity extends AppCompatActivity implements DeleteDialog.IODe
     private ContactsAdapter mAdapter;
     private ListView mListView;
     private Button mBtnAddContact;
-    private DataSet mDataSet;
+    private DataSet mDataSet = DataSet.getInstance(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mDataSet = DataSet.getInstance(this);
+
 
         mListView = (ListView) findViewById(R.id.listView);
         mBtnAddContact = (Button) findViewById(R.id.btnAddContact);

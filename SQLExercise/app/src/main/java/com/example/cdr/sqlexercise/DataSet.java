@@ -68,9 +68,12 @@ public class DataSet {
         vCV.put(ContactsHelper.NAME, aContact.getName());
         vCV.put(ContactsHelper.SURNAME, aContact.getSurname());
         int vID = (int)vDB.insert(ContactsHelper.TABLE_NAME, null, vCV);
-        aContact.setID(vID);
-        mData.add(aContact);
-        Log.d(TAG, "Contact inserito");
+        if (vID > 0){
+            aContact.setID(vID);
+            mData.add(aContact);
+            Log.d(TAG, "Contact inserito");
+        }
+
         vDB.close();
     }
 

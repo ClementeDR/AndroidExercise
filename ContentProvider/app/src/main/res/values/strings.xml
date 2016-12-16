@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ContentProvider</string>
+    <string name="add_contact">Add Contact</string>
+    <string name="text_id">ID</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+</resources>

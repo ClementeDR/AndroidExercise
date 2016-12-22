@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">GoogleMapsMC</string>
     <string name="maps_key">AIzaSyCkuQX7qJpl94QKog49V_yVmSHY8DN2qTM</string>
+    <string name="facebook_app_id">703838103109746</string>
+    <string name="fb_login_protocol_scheme">fb703838103109746</string>
 
 
 </resources>

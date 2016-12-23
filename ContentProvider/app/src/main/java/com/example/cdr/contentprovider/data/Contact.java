@@ -5,7 +5,7 @@ package com.example.cdr.contentprovider.data;
  */
 
 public class Contact {
-    private int mID;
+    private long mID;
     private String mName;
     private String mSurname;
 
@@ -13,17 +13,17 @@ public class Contact {
 
     }
 
-    public Contact(int aID, String aName, String aSurname){
+    public Contact(long aID, String aName, String aSurname){
         mID = aID;
         mName = aName;
         mSurname = aSurname;
     }
 
-    public int getID() {
+    public long getID() {
         return mID;
     }
 
-    public void setID(int ID) {
+    public void setID(long ID) {
         this.mID = ID;
     }
 

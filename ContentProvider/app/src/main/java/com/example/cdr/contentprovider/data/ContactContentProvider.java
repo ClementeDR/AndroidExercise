@@ -65,7 +65,7 @@ public class ContactContentProvider extends ContentProvider {
         SQLiteDatabase vDB = mDBHelper.getReadableDatabase();
         Cursor vCursor = vQueryBuilder.query(vDB, projection, selection, selectionArgs, null, null, sordOrder);
         vCursor.setNotificationUri(getContext().getContentResolver(), uri);
-        vDB.close();
+
 
         return vCursor;
     }

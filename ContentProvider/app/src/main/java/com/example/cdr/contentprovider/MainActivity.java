@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -37,6 +38,7 @@ public class   MainActivity extends AppCompatActivity implements LoaderManager.L
         vList.setAdapter(mAdapter);
 
         getLoaderManager().initLoader(0,null,this);
+        getLoaderManager().initLoader(1,null,this);
 
         vList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -70,9 +72,7 @@ public class   MainActivity extends AppCompatActivity implements LoaderManager.L
     }
 
     private void deleteItem(long aItemId) {
-
         DeleteDialog.getInstance(aItemId).show(getSupportFragmentManager(),"Delete");
-
     }
 
     private void addItem() {
@@ -81,18 +81,19 @@ public class   MainActivity extends AppCompatActivity implements LoaderManager.L
         int a = vRand.nextInt();
         vValues.put(ContactsHelper.NAME, "name " + a);
         vValues.put(ContactsHelper.SURNAME, "Surname " + a);
-
         getContentResolver().insert(ContactContentProvider.CONTACTS_URI, vValues);
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        Log.d("Loader<Cursor>", "a" + id);
         CursorLoader cursorLoader = new CursorLoader(this, ContactContentProvider.CONTACTS_URI, null,null,null,null);
         return cursorLoader;
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        Log.d("onLoadFinished", "" + loader.getId());
         mAdapter.swapCursor(data);
     }
 

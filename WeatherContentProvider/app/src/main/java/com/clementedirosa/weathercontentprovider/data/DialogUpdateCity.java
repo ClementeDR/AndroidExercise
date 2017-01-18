@@ -1,5 +1,4 @@
-package com.example.cdr.contentprovider.data;
-
+package com.clementedirosa.weathercontentprovider.data;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -14,38 +13,34 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
-import com.example.cdr.contentprovider.R;
+import com.clementedirosa.weathercontentprovider.R;
 
 /**
- * Created by tsam on 23/12/16.
+ * Created by clementedirosa on 13/01/2017.
  */
 
-
-public class UpdateDialog extends DialogFragment {
-    private static final String ID = "Dialog_ID";
-    private static final String SURNAME = "SURNAME";
-    private static final String NAME = "NAME";
-    private static final String TITLE = "ATTENZIONE";
-    private static final String MESSAGE = "Vuoi modificarequesto contatto?";
+public class DialogUpdateCity extends DialogFragment {
+    private static final String CITY_ID = "CITY_ID";
+    private static final String CITY_NAME = "save_city";
+    private static final String MESSAGE = "Modifica citta'";
+    private EditText mCityName;
     private long mPosition;
-    private EditText mName;
-    private EditText mSurname;
 
-    public static UpdateDialog getInstance(long aID){
-        UpdateDialog vFrag = new UpdateDialog();
+    public static DialogUpdateCity getInstance(long aID){
+        DialogUpdateCity vFrag = new DialogUpdateCity();
         Bundle vBundle = new Bundle();
-        vBundle.putLong(ID, aID);
+        vBundle.putLong(CITY_ID, aID);
         vFrag.setArguments(vBundle);
         return vFrag;
     }
 
-    public interface IOUpdateDialog {
-        void update(long aID, String aName, String aSurname);
+    public interface IOUpdateCity {
+        void update(long aID, String aName);
     }
 
-    private IOUpdateDialog mListener = new IOUpdateDialog() {
+    private IOUpdateCity mListener = new IOUpdateCity() {
         @Override
-        public void update(long aPosition, String aName, String aSurname) {
+        public void update(long aPosition, String aName) {
         }
     };
 
@@ -58,8 +53,8 @@ public class UpdateDialog extends DialogFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof IOUpdateDialog)
-            mListener = (IOUpdateDialog)context;
+        if (context instanceof IOUpdateCity)
+            mListener = (IOUpdateCity)context;
     }
 
     @NonNull
@@ -69,34 +64,28 @@ public class UpdateDialog extends DialogFragment {
 
         AlertDialog.Builder vBuilder = new AlertDialog.Builder(getActivity());
         LayoutInflater vInflater = getActivity().getLayoutInflater();
-        View vView = vInflater.inflate(R.layout.modify_dialog, null);
+        View vView = vInflater.inflate(R.layout.add_city_dialog, null);
+        mCityName = (EditText) vView.findViewById(R.id.nameEditText);
 
-        mName = (EditText) vView.findViewById(R.id.txtNameDialog);
-        mSurname = (EditText) vView.findViewById(R.id.txtSurnameDialog);
         vBuilder.setView(vView);
-        mPosition = getArguments().getLong(ID);
+        mPosition = getArguments().getLong(CITY_ID);
 
         if (savedInstanceState != null){
-            mName.setText(savedInstanceState.getString(NAME));
-            mSurname.setText(savedInstanceState.getString(SURNAME));
+            mCityName.setText(savedInstanceState.getString(CITY_NAME));
         } else {
-
-            //TODO: PRENDI DA CONTENT OPPURE PASSAGGIO
-
-            Uri vUriQuery = Uri.parse(ContactContentProvider.CONTACTS_URI + "/" + mPosition);
+            Uri vUriQuery = Uri.parse(MyContentProvider.CITY_URI + "/" + mPosition);
             Cursor vCursor = getContext().getContentResolver().query(vUriQuery,null,null,null,null);
             while (vCursor.moveToNext()){
-                mName.setText("" + vCursor.getString(vCursor.getColumnIndex(ContactsHelper.NAME)));
-                mSurname.setText("" + vCursor.getString(vCursor.getColumnIndex(ContactsHelper.SURNAME)));
+                mCityName.setText("" + vCursor.getString(vCursor.getColumnIndex(CityHelper.NAME)));
             }
             vCursor.close();
         }
-        vBuilder.setTitle(TITLE)
+        vBuilder.setTitle(AddCityDialog.TITLE)
                 .setMessage(MESSAGE)
                 .setPositiveButton("SALVA", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        mListener.update(mPosition, mName.getText().toString(), mSurname.getText().toString());
+                        mListener.update(mPosition, mCityName.getText().toString());
                     }
                 })
                 .setNegativeButton("ANNULLA", new DialogInterface.OnClickListener() {
@@ -111,8 +100,8 @@ public class UpdateDialog extends DialogFragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString(NAME, mName.getText().toString());
-        outState.putString(SURNAME, mSurname.getText().toString());
-
+        outState.putString(CITY_NAME, mCityName.getText().toString());
     }
+
+
 }

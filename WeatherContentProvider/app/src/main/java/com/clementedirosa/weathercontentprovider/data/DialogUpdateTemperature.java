@@ -20,7 +20,7 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 
 /**
- * Created by clementedirosa on 13/01/2017.
+ * Created by clementedirosa on 13/01\/2017.
  */
 
 public class DialogUpdateTemperature extends DialogFragment {
@@ -72,7 +72,7 @@ public class DialogUpdateTemperature extends DialogFragment {
             Uri vUriQuery = Uri.parse(MyContentProvider.TEMPERATURE_URI + "/" + mPosition);
             Cursor vCursor = getContext().getContentResolver().query(vUriQuery,null,null,null,null);
             while (vCursor.moveToNext()){
-                mTemperatureText.setText("" + vCursor.getLong(vCursor.getColumnIndex(TemperatureHelper.TEMPERATURE)));
+                mTemperatureText.setText("" + vCursor.getFloat(vCursor.getColumnIndex(TemperatureHelper.TEMPERATURE)));
                 mDate = vCursor.getLong(vCursor.getColumnIndex(TemperatureHelper.DATA));
             }
             vCursor.close();

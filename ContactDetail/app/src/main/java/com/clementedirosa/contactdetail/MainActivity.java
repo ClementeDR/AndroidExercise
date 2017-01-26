@@ -38,7 +38,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
             public Cursor runQuery(CharSequence constraint) {
                 String vInfo2Search = new String(constraint.toString()).toUpperCase();
-                Cursor vCursor = getContentResolver().query(MyContentProvider.CONTACTS_URI, null, "UPPER(" + ContactHelper.COGNOME + " || ' ' || " + ContactHelper.NOME + ") LIKE '%" + vInfo2Search + "%' OR UPPER(" + ContactHelper.NOME + " || ' ' || " + ContactHelper.COGNOME + ") LIKE '%" + vInfo2Search + "%'" , null, null);
+                Cursor vCursor = getContentResolver().query(MyContentProvider.CONTACTS_URI, null,
+                        "UPPER(" + ContactHelper.COGNOME + " || ' ' || " + ContactHelper.NOME + ") LIKE '%"
+                                + vInfo2Search + "%' OR UPPER(" + ContactHelper.NOME + " || ' ' || " + ContactHelper.COGNOME
+                                + ") LIKE '%" + vInfo2Search + "%'" , null, null);
+
+
+//                return getContentResolver().query(MyContentProvider.CONTACTS_URI, null,
+//                        "UPPER(" + ContactHelper.COGNOME + " || ' ' || " + ContactHelper.NOME + ") LIKE '%"
+//                                + vInfo2Search + "%' OR UPPER(" + ContactHelper.NOME + " || ' ' || " + ContactHelper.COGNOME
+//                                + ") LIKE '%" + vInfo2Search + "%'" , null, null);
                 return vCursor;
             }
 
@@ -65,10 +74,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         vBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ContentValues vale = new ContentValues();
-//                vale.put(ContactHelper.NOME, "clem");
-//                vale.put(ContactHelper.COGNOME, "dr");
-//                getContentResolver().insert(MyContentProvider.CONTACTS_URI, vale);
+//
                 AddDialog.getInstance().show(getSupportFragmentManager(), "AddDialog");
             }
         });
@@ -84,7 +90,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         Log.d("onLoadFinished", "" + loader.getId());
-        mAdapter.swapCursor(data);
+
+        //TODO: CHIEDERE A MERLI E BRU
+
+        if (!data.isClosed()){
+            mAdapter.swapCursor(data);
+        }
     }
 
     @Override
@@ -102,6 +113,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public boolean onQueryTextChange(String newText) {
         mAdapter.getFilter().filter(newText.toString());
+
+        //TODO: CHIEDERE A MERLINO E BRUNO
+      //  mAdapter.swapCursor(null);
+
         return true;
     }
 
@@ -112,6 +127,5 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         vValues.put(ContactHelper.NOME, aName);
         vValues.put(ContactHelper.COGNOME, aSurname);
         getContentResolver().insert(MyContentProvider.CONTACTS_URI, vValues);
-
     }
 }

@@ -55,6 +55,9 @@ public class MyContentProvider extends ContentProvider {
         switch (vUriType){
             case CONTACTS:
                 vQueryBuilder.setTables(ContactHelper.TABLE_NAME);
+                if(!TextUtils.isEmpty(selection)){
+                    vQueryBuilder.appendWhere(selection);
+                }
                 break;
             case CONTACTS_ID:
                 vQueryBuilder.setTables(ContactHelper.TABLE_NAME);

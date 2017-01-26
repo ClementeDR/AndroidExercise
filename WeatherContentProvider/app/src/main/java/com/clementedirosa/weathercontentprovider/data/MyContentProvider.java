@@ -25,7 +25,6 @@ public class MyContentProvider extends ContentProvider{
     private static final String AUTHORITY = "com.clementedirosa.weathercontentprovider.data.contentprovider";
     private static final String CITY_BASE_PATH = "citys";
     private static final String TEMPERATURE_BASE_PATH = "temperatures";
-    public static final String TEMP_BY_CITY_PATH = "city";
 
     public static final Uri CITY_URI = Uri.parse("content://" + AUTHORITY + "/" + CITY_BASE_PATH);
     public static final Uri TEMPERATURE_URI = Uri.parse("content://" + AUTHORITY + "/" + TEMPERATURE_BASE_PATH);
@@ -43,7 +42,7 @@ public class MyContentProvider extends ContentProvider{
         sURIMatcher.addURI(AUTHORITY, CITY_BASE_PATH + "/#", CITY_ID);
         sURIMatcher.addURI(AUTHORITY, TEMPERATURE_BASE_PATH, TEMPERATURE);
         sURIMatcher.addURI(AUTHORITY, TEMPERATURE_BASE_PATH + "/#", TEMPERATURE_ID);
-        sURIMatcher.addURI(AUTHORITY, TEMPERATURE_BASE_PATH + "/" + TEMP_BY_CITY_PATH + "/#", TEMPERATURE_BY_CITY);
+//        sURIMatcher.addURI(AUTHORITY, TEMPERATURE_BASE_PATH + "/" + TEMP_BY_CITY_PATH + "/#", TEMPERATURE_BY_CITY);
     }
 
     DBHelper mDBHelper;

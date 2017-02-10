@@ -22,11 +22,11 @@ public class MainActivity extends AppCompatActivity implements FragmentSelector.
     @Override
     public void onUpdateValue(String currentValue) {
         Log.d("TEST", currentValue);
-       /* FragmentTransaction vTr = getSupportFragmentManager().beginTransaction();
-        //vTr.replace(R.id.container, Fragment_a.getInstance())
-        vTr.replace(R.id.container, FragmentSelector.getInstance(currentValue))
-                .addToBackStack(null)
-                .commit();*/
+//        FragmentTransaction vTr = getSupportFragmentManager().beginTransaction();
+//        //vTr.replace(R.id.container, Fragment_a.getInstance())
+//        vTr.replace(R.id.container, FragmentSelector.getInstance(currentValue))
+//                .addToBackStack(null)
+//                .commit();
 
         FirstDialog dialog = FirstDialog.getInstance(currentValue);
         dialog.show(getSupportFragmentManager(), "DIALOG");

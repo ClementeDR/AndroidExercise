@@ -14,11 +14,13 @@ import android.widget.ImageButton;
 import com.clementedirosa.contactdetail.data.ContactHelper;
 import com.clementedirosa.contactdetail.data.MyContentProvider;
 
+
 public class DetailActivity extends AppCompatActivity {
     private static final String READING = "READING";
     private static final String SAVE = "SALVA";
     private static final String MODIFICA = "MODIFICA";
-
+    private static final String ANNULLA = "ANNULLA";
+    private static final String DELETE = "ELIMINA";
     private boolean mIsReading = true;
 
     private ImageButton mImageButton;
@@ -74,8 +76,10 @@ public class DetailActivity extends AppCompatActivity {
         mBtnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri vUriToDelete = Uri.parse(MyContentProvider.CONTACTS_URI + "/" + mItemID);
-                getContentResolver().delete(vUriToDelete, null, null);
+                if (mIsReading){
+                    Uri vUriToDelete = Uri.parse(MyContentProvider.CONTACTS_URI + "/" + mItemID);
+                    getContentResolver().delete(vUriToDelete, null, null);
+                }
                 finish();
             }
         });
@@ -83,10 +87,8 @@ public class DetailActivity extends AppCompatActivity {
         mBtnModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mIsReading){
-                    mIsReading = false;
-                } else {
-                    mIsReading = true;
+                if (!mIsReading){
+
                     ContentValues vValues = new ContentValues();
                     vValues.put(ContactHelper.NOME, mNameEditText.getText().toString());
                     vValues.put(ContactHelper.COGNOME, mSurnameEditText.getText().toString());
@@ -104,6 +106,7 @@ public class DetailActivity extends AppCompatActivity {
                     int test = getContentResolver().update(vUriToUpdate, vValues,null,null);
                     Log.d("TEMP", "onClick: " + test);
                 }
+                mIsReading = !mIsReading;
                 modify();
             }
         });
@@ -111,34 +114,25 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void modify() {
+        mNameEditText.setEnabled(!mIsReading);
+        mSurnameEditText.setEnabled(!mIsReading);
+        mDateEditText.setEnabled(!mIsReading);
+        mEmailEditText.setEnabled(!mIsReading);
+        mTelefonoEditText.setEnabled(!mIsReading);
+        mViaEditText.setEnabled(!mIsReading);
+        mCittaEditText.setEnabled(!mIsReading);
+        mCivicoEditText.setEnabled(!mIsReading);
+        mCapEditText.setEnabled(!mIsReading);
+        mProvinciaEditText.setEnabled(!mIsReading);
+        mLatEditText.setEnabled(!mIsReading);
+        mLngEditText.setEnabled(!mIsReading);
+
         if(mIsReading){
-            mNameEditText.setEnabled(false);
-            mSurnameEditText.setEnabled(false);
-            mDateEditText.setEnabled(false);
-            mEmailEditText.setEnabled(false);
-            mTelefonoEditText.setEnabled(false);
-            mViaEditText.setEnabled(false);
-            mCittaEditText.setEnabled(false);
-            mCivicoEditText.setEnabled(false);
-            mCapEditText.setEnabled(false);
-            mProvinciaEditText.setEnabled(false);
-            mLatEditText.setEnabled(false);
-            mLngEditText.setEnabled(false);
             mBtnModify.setText(MODIFICA);
+            mBtnDelete.setText(DELETE);
         } else {
-            mNameEditText.setEnabled(true);
-            mSurnameEditText.setEnabled(true);
-            mDateEditText.setEnabled(true);
-            mEmailEditText.setEnabled(true);
-            mTelefonoEditText.setEnabled(true);
-            mViaEditText.setEnabled(true);
-            mCittaEditText.setEnabled(true);
-            mCivicoEditText.setEnabled(true);
-            mCapEditText.setEnabled(true);
-            mProvinciaEditText.setEnabled(true);
-            mLatEditText.setEnabled(true);
-            mLngEditText.setEnabled(true);
             mBtnModify.setText(SAVE);
+            mBtnDelete.setText(ANNULLA);
         }
     }
 

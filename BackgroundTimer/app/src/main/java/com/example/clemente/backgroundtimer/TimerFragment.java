@@ -2,6 +2,7 @@ package com.example.clemente.backgroundtimer;
 
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import java.lang.ref.WeakReference;
 public class TimerFragment extends Fragment {
     private static final String TAG = "timerFrag";
     MyTimer myTimer;
+    MyAsyncTimer mMyAsync;
     private IOTimerUpdate mListener = new IOTimerUpdate() {
         @Override
         public void onUpdateValue(String aValue) {
@@ -60,15 +62,17 @@ public class TimerFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy");
-        mListener = null;
-        myTimer.stop();
+
+//        myTimer.stop();
+        mMyAsync.cancel(true);
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-
+        mListener = null;
         Log.d(TAG, "onDetach");
+
     }
 
     @Override
@@ -98,26 +102,60 @@ public class TimerFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
         setRetainInstance(true);
-        myTimer = new MyTimer(this);
-        Thread vTh = new Thread(new MyTimer(this));
-        vTh.start();
+//        myTimer = new MyTimer(this);
+//        Thread vTh = new Thread(new MyTimer(this));
+//        vTh.start();
+        mMyAsync = new MyAsyncTimer();
+        mMyAsync.execute();
     }
+
+
 
     private void onTimerValue(String aTime){
         Log.d(TAG, "onTimerValue " + aTime);
-        mListener.onUpdateValue(aTime);
+        if (mListener !=  null)
+            mListener.onUpdateValue(aTime);
+    }
+
+    private class MyAsyncTimer extends AsyncTask<Void, Integer, String>{
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            int vIndex = 0;
+            while (!isCancelled()) {
+                publishProgress(vIndex);
+                vIndex++;
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException aE) {
+                    aE.printStackTrace();
+                }
+            }
+            return "Finish";
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+
+            int tempValue = values[0];
+            int hour = tempValue / 3600;
+            tempValue = (tempValue % 3600);
+            int minutes = tempValue /60;
+            tempValue = (tempValue % 60);
+
+            onTimerValue("" + hour + ":" + minutes + ":" + tempValue);
+
+            Log.d(TAG, "onProgressUpdate: " + values[0]);
+        }
+
     }
 
     private static class MyTimer implements Runnable{
 
         int mCounter;
-        int mm;
-        int ss;
-        String min;
-        String sec;
         boolean mRunning;
         WeakReference<TimerFragment> mRef;
-
 
         public MyTimer(TimerFragment aRef){
             mRef = new WeakReference<TimerFragment>(aRef);
@@ -133,21 +171,13 @@ public class TimerFragment extends Fragment {
             while (mRunning){
                 if(mRef.get() != null){
                     mCounter++;
-                    ss++;
-                    if(ss == 60){
-                        mm++;
-                        ss = 0;
-                    }
-                    if (mm < 10)
-                        min = "0" + mm;
-                    else
-                        min = "" + mm;
-                    if(ss < 10)
-                        sec = "0" + ss;
-                    else
-                        sec = "" + ss;
+                    int tempValue = mCounter;
+                    int hour = tempValue / 3600;
+                    tempValue = (tempValue % 3600);
+                    int minutes = tempValue /60;
+                    tempValue = (tempValue % 60);
 
-                    mRef.get().onTimerValue("" + min + ":" + sec);
+                    mRef.get().onTimerValue("" + hour + ":" + minutes + ":" + tempValue);
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {

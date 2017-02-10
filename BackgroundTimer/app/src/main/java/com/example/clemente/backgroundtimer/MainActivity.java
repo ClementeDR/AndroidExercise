@@ -8,6 +8,7 @@ public class MainActivity extends AppCompatActivity implements TimerFragment.IOT
     TextView mText;
     TimerFragment timerFragment;
     private static final String TIMER_TAG = "timerTag";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,5 +35,10 @@ public class MainActivity extends AppCompatActivity implements TimerFragment.IOT
                 mText.setText("" + aValue);
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

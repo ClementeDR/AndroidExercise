@@ -43,11 +43,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                                 + vInfo2Search + "%' OR UPPER(" + ContactHelper.NOME + " || ' ' || " + ContactHelper.COGNOME
                                 + ") LIKE '%" + vInfo2Search + "%'" , null, null);
 
-
-//                return getContentResolver().query(MyContentProvider.CONTACTS_URI, null,
-//                        "UPPER(" + ContactHelper.COGNOME + " || ' ' || " + ContactHelper.NOME + ") LIKE '%"
-//                                + vInfo2Search + "%' OR UPPER(" + ContactHelper.NOME + " || ' ' || " + ContactHelper.COGNOME
-//                                + ") LIKE '%" + vInfo2Search + "%'" , null, null);
                 return vCursor;
             }
 

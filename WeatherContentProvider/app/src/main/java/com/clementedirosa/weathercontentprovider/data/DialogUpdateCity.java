@@ -36,11 +36,16 @@ public class DialogUpdateCity extends DialogFragment {
 
     public interface IOUpdateCity {
         void update(long aID, String aName);
+        void deleteCity(long aId);
     }
 
     private IOUpdateCity mListener = new IOUpdateCity() {
         @Override
         public void update(long aPosition, String aName) {
+        }
+
+        public void deleteCity(long aId){
+
         }
     };
 
@@ -86,6 +91,12 @@ public class DialogUpdateCity extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         mListener.update(mPosition, mCityName.getText().toString());
+                    }
+                })
+                .setNeutralButton("Elimina", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mListener.deleteCity(mPosition);
                     }
                 })
                 .setNegativeButton("ANNULLA", new DialogInterface.OnClickListener() {

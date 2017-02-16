@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(mBReceiver, new IntentFilter("TIME_END"));
 
-//        bindService(new Intent(this, TestService.class), mServiceConnection, Context.BIND_AUTO_CREATE);
+        bindService(new Intent(this, TestService.class), mServiceConnection, Context.BIND_AUTO_CREATE);
     }
 
 
@@ -104,10 +104,10 @@ public class MainActivity extends AppCompatActivity {
 
         LocalBroadcastManager.getInstance(this)
                 .unregisterReceiver(mBReceiver);
-//        if (mBound){
-//            unbindService(mServiceConnection);
-//            mBound = false;
-//        }
+        if (mBound){
+            unbindService(mServiceConnection);
+            mBound = false;
+        }
 
         Log.d(TAG, "onStop: ");
     }

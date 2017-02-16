@@ -16,6 +16,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/addTemperature"
+        android:descendantFocusability="blocksDescendants"
         android:id="@+id/listTemperature" />
 
     <Button

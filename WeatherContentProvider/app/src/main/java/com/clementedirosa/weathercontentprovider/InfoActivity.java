@@ -18,12 +18,13 @@ import android.widget.ListView;
 import com.clementedirosa.weathercontentprovider.data.CityHelper;
 import com.clementedirosa.weathercontentprovider.data.DBHelper;
 import com.clementedirosa.weathercontentprovider.data.DialogAddTemperature;
+import com.clementedirosa.weathercontentprovider.data.DialogDeleteTemperature;
 import com.clementedirosa.weathercontentprovider.data.DialogUpdateTemperature;
 import com.clementedirosa.weathercontentprovider.data.MyContentProvider;
 import com.clementedirosa.weathercontentprovider.data.TemperatureAdapter;
 import com.clementedirosa.weathercontentprovider.data.TemperatureHelper;
 
-public class InfoActivity extends AppCompatActivity implements  LoaderManager.LoaderCallbacks<Cursor>, DialogAddTemperature.IOAddTemperature, DialogUpdateTemperature.IOUpdateTemperature {
+public class InfoActivity extends AppCompatActivity implements  LoaderManager.LoaderCallbacks<Cursor>, DialogAddTemperature.IOAddTemperature, DialogUpdateTemperature.IOUpdateTemperature, DialogDeleteTemperature.IODeleteTemperature {
 
     long mCityID;
     private ListView mTemperatureList;
@@ -63,6 +64,14 @@ public class InfoActivity extends AppCompatActivity implements  LoaderManager.Lo
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 DialogUpdateTemperature.getInstance(id).show(getSupportFragmentManager(), "UpdateTemperature");
                 return true;
+            }
+        });
+
+        mTemperatureList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                DialogDeleteTemperature.getInstance(id).show(getSupportFragmentManager(), "Delete Temperature");
+
             }
         });
 
@@ -115,5 +124,11 @@ public class InfoActivity extends AppCompatActivity implements  LoaderManager.Lo
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(CITY_NAME, getTitle().toString());
+    }
+
+    @Override
+    public void deleteTemperature(long aID) {
+        Uri vUriToDelete = Uri.parse(MyContentProvider.TEMPERATURE_URI + "/" + aID);
+        getContentResolver().delete(vUriToDelete, null, null);
     }
 }

@@ -1,11 +1,15 @@
 package com.example.clemente.backgroundtimer;
 
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +21,16 @@ public class TimerFragment extends Fragment {
     private static final String TAG = "timerFrag";
     MyTimer myTimer;
     MyAsyncTimer mMyAsync;
+
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            onTimerValue(intent.getStringExtra(TAG));
+
+        }
+
+    };
+
     private IOTimerUpdate mListener = new IOTimerUpdate() {
         @Override
         public void onUpdateValue(String aValue) {
@@ -62,9 +76,9 @@ public class TimerFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy");
-
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(mReceiver);
 //        myTimer.stop();
-        mMyAsync.cancel(true);
+//        mMyAsync.cancel(true);
     }
 
     @Override
@@ -102,9 +116,12 @@ public class TimerFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
         setRetainInstance(true);
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(mReceiver, new IntentFilter("TIMER"));
 //        myTimer = new MyTimer(this);
 //        Thread vTh = new Thread(new MyTimer(this));
 //        vTh.start();
+
+
         mMyAsync = new MyAsyncTimer();
         mMyAsync.execute();
     }
@@ -144,7 +161,9 @@ public class TimerFragment extends Fragment {
             int minutes = tempValue /60;
             tempValue = (tempValue % 60);
 
-            onTimerValue("" + hour + ":" + minutes + ":" + tempValue);
+            LocalBroadcastManager.getInstance(getContext()).sendBroadcast(new Intent("TIMER").putExtra(TAG, "" + hour + ":" + minutes + ":" + tempValue));
+
+//            onTimerValue("" + hour + ":" + minutes + ":" + tempValue);
 
             Log.d(TAG, "onProgressUpdate: " + values[0]);
         }

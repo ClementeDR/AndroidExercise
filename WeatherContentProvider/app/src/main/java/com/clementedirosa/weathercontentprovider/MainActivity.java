@@ -20,6 +20,7 @@ import com.clementedirosa.weathercontentprovider.data.CityAdapter;
 import com.clementedirosa.weathercontentprovider.data.CityHelper;
 import com.clementedirosa.weathercontentprovider.data.DialogUpdateCity;
 import com.clementedirosa.weathercontentprovider.data.MyContentProvider;
+import com.clementedirosa.weathercontentprovider.data.TemperatureHelper;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, AddCityDialog.IOAddCity, DialogUpdateCity.IOUpdateCity {
     public static final String ITEM_ID = "ITEM_ID";
@@ -59,10 +60,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         });
 
+
         mBtnAddCity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // AddCityDialog.getInstance().show();
                 add();
             }
         });
@@ -110,5 +111,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         vValues.put(CityHelper.NAME, aName);
         Uri vUriToUpdate = Uri.parse(MyContentProvider.CITY_URI + "/" + aID);
         getContentResolver().update(vUriToUpdate, vValues,null,null);
+    }
+
+    @Override
+    public void deleteCity(long aId) {
+        Uri vUriCityToDelete = Uri.parse(MyContentProvider.CITY_URI + "/" + aId);
+        getContentResolver().delete(vUriCityToDelete, null, null);
+        getContentResolver().delete(MyContentProvider.TEMPERATURE_URI, TemperatureHelper.CITY_ID + "=" + aId, null);
+
     }
 }

@@ -1,4 +1,4 @@
-package com.clementedirosa.weathercontentprovider.data;
+package com.clementedirosa.weathercontentprovider.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -9,6 +9,7 @@ import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 import com.clementedirosa.weathercontentprovider.R;
+import com.clementedirosa.weathercontentprovider.data.TemperatureHelper;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;

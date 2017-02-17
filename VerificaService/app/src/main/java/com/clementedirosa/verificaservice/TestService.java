@@ -22,6 +22,7 @@ public class TestService extends Service {
     BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            Log.d(TAG, "onReceive: TestService");
            // timerLog();
         }
     };

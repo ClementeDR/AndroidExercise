@@ -33,7 +33,6 @@ public class MyContentProvider extends ContentProvider{
     private static final int CITY_ID = 11;
     private static final int TEMPERATURE = 20;
     private static final int TEMPERATURE_ID = 21;
-    private static final int TEMPERATURE_BY_CITY = 22;
 
     private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
@@ -63,13 +62,11 @@ public class MyContentProvider extends ContentProvider{
         switch (vUriType){
             case CITY:
                 vQueryBuilder.setTables(CityHelper.TABLE_NAME);
-
                 break;
 
             case CITY_ID:
                 vQueryBuilder.setTables(CityHelper.TABLE_NAME);
                 vQueryBuilder.appendWhere(CityHelper._ID + "=" + uri.getLastPathSegment());
-
                 break;
 
             case TEMPERATURE:

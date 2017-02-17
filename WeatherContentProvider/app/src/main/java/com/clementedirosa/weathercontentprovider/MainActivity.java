@@ -15,14 +15,14 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.clementedirosa.weathercontentprovider.data.AddCityDialog;
-import com.clementedirosa.weathercontentprovider.data.CityAdapter;
+import com.clementedirosa.weathercontentprovider.dialog.AddCityDialog;
+import com.clementedirosa.weathercontentprovider.adapter.CityAdapter;
 import com.clementedirosa.weathercontentprovider.data.CityHelper;
-import com.clementedirosa.weathercontentprovider.data.DialogUpdateCity;
+import com.clementedirosa.weathercontentprovider.dialog.DialogUpdateCity;
 import com.clementedirosa.weathercontentprovider.data.MyContentProvider;
 import com.clementedirosa.weathercontentprovider.data.TemperatureHelper;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, AddCityDialog.IOAddCity, DialogUpdateCity.IOUpdateCity {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, AddCityDialog.IAddCity, DialogUpdateCity.IUpdateCity {
     public static final String ITEM_ID = "ITEM_ID";
     private ListView mListView;
     private Button mBtnAddCity;

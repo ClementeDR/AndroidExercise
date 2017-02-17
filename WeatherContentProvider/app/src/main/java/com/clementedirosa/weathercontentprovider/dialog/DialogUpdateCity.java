@@ -1,4 +1,4 @@
-package com.clementedirosa.weathercontentprovider.data;
+package com.clementedirosa.weathercontentprovider.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.clementedirosa.weathercontentprovider.R;
+import com.clementedirosa.weathercontentprovider.data.CityHelper;
+import com.clementedirosa.weathercontentprovider.data.MyContentProvider;
 
 /**
  * Created by clementedirosa on 13/01/2017.
@@ -34,12 +36,12 @@ public class DialogUpdateCity extends DialogFragment {
         return vFrag;
     }
 
-    public interface IOUpdateCity {
+    public interface IUpdateCity {
         void update(long aID, String aName);
         void deleteCity(long aId);
     }
 
-    private IOUpdateCity mListener = new IOUpdateCity() {
+    private IUpdateCity mListener = new IUpdateCity() {
         @Override
         public void update(long aPosition, String aName) {
         }
@@ -58,8 +60,8 @@ public class DialogUpdateCity extends DialogFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof IOUpdateCity)
-            mListener = (IOUpdateCity)context;
+        if (context instanceof IUpdateCity)
+            mListener = (IUpdateCity)context;
     }
 
     @NonNull

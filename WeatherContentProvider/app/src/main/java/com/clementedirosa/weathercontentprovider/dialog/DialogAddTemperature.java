@@ -1,4 +1,4 @@
-package com.clementedirosa.weathercontentprovider.data;
+package com.clementedirosa.weathercontentprovider.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -40,11 +40,11 @@ public class DialogAddTemperature extends DialogFragment {
         return vFrag;
     }
 
-    public interface IOAddTemperature {
+    public interface IAddTemperature {
         void yes(float aTemperature, long aDate, long aCityID);
     }
 
-    private IOAddTemperature mListener = new IOAddTemperature() {
+    private IAddTemperature mListener = new IAddTemperature() {
         @Override
         public void yes(float aTemperature, long aDate, long aCityID) {
         }
@@ -59,8 +59,8 @@ public class DialogAddTemperature extends DialogFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof IOAddTemperature)
-            mListener = (IOAddTemperature) context;
+        if (context instanceof IAddTemperature)
+            mListener = (IAddTemperature) context;
     }
 
     @NonNull

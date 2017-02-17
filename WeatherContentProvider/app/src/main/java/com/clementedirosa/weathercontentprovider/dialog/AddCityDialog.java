@@ -1,4 +1,4 @@
-package com.clementedirosa.weathercontentprovider.data;
+package com.clementedirosa.weathercontentprovider.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -28,11 +28,11 @@ public class AddCityDialog extends DialogFragment {
         return vFrag;
     }
 
-    public interface IOAddCity {
+    public interface IAddCity {
         void yes(String aCityName);
     }
 
-    private IOAddCity mListener = new IOAddCity() {
+    private IAddCity mListener = new IAddCity() {
         @Override
         public void yes(String aCityName) {
         }
@@ -47,8 +47,8 @@ public class AddCityDialog extends DialogFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof IOAddCity)
-            mListener = (IOAddCity) context;
+        if (context instanceof IAddCity)
+            mListener = (IAddCity) context;
     }
 
     @NonNull

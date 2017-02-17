@@ -1,4 +1,4 @@
-package com.clementedirosa.weathercontentprovider.data;
+package com.clementedirosa.weathercontentprovider.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -15,11 +15,11 @@ public class DialogDeleteTemperature extends DialogFragment {
 
     private static final String ID = "ID_TO_DELETE";
 
-    public interface IODeleteTemperature{
+    public interface IDeleteTemperature {
         void deleteTemperature(long aID);
     }
 
-    private IODeleteTemperature mListener = new IODeleteTemperature() {
+    private IDeleteTemperature mListener = new IDeleteTemperature() {
         @Override
         public void deleteTemperature(long aID) {
 
@@ -59,8 +59,8 @@ public class DialogDeleteTemperature extends DialogFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof IODeleteTemperature)
-            mListener = (IODeleteTemperature)context;
+        if (context instanceof IDeleteTemperature)
+            mListener = (IDeleteTemperature)context;
     }
 
     @Override

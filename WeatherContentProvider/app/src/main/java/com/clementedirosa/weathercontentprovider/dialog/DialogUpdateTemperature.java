@@ -1,4 +1,4 @@
-package com.clementedirosa.weathercontentprovider.data;
+package com.clementedirosa.weathercontentprovider.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.clementedirosa.weathercontentprovider.R;
+import com.clementedirosa.weathercontentprovider.data.MyContentProvider;
+import com.clementedirosa.weathercontentprovider.data.TemperatureHelper;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -42,11 +44,11 @@ public class DialogUpdateTemperature extends DialogFragment {
         return vFrag;
     }
 
-    public interface IOUpdateTemperature{
+    public interface IUpdateTemperature {
         void update(long aTempID, float aTemperature);
     }
 
-    private IOUpdateTemperature mListener = new IOUpdateTemperature() {
+    private IUpdateTemperature mListener = new IUpdateTemperature() {
         @Override
         public void update(long aTempID, float aTemperature) {
 
@@ -101,8 +103,8 @@ public class DialogUpdateTemperature extends DialogFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof IOUpdateTemperature)
-            mListener = (IOUpdateTemperature)context;
+        if (context instanceof IUpdateTemperature)
+            mListener = (IUpdateTemperature)context;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.clementedirosa.weathercontentprovider.data;
+package com.clementedirosa.weathercontentprovider.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -16,11 +16,11 @@ public class DialogDeleteCity extends DialogFragment {
 
     private static final String ID = "ID_TO_DELETE";
 
-    public interface IODeleteCity{
+    public interface IDeleteCity {
         void deleteCity(long aId);
     }
 
-    private IODeleteCity mListener = new IODeleteCity() {
+    private IDeleteCity mListener = new IDeleteCity() {
         @Override
         public void deleteCity(long aId) {
 
@@ -30,8 +30,8 @@ public class DialogDeleteCity extends DialogFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof IODeleteCity)
-            mListener = (IODeleteCity)context;
+        if (context instanceof IDeleteCity)
+            mListener = (IDeleteCity)context;
     }
 
     public static DialogDeleteCity getInstance(long aId){

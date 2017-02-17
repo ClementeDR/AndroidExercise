@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
             public Cursor runQuery(CharSequence constraint) {
                 String vInfo2Search = new String(constraint.toString()).toUpperCase();
-                String resultRecords =new Select().
+                String resultRecords = new Select().
                         from(Anagrafica.class).where("UPPER(" + ContactHelper.COGNOME + " || ' ' || " + ContactHelper.NOME + ") LIKE '%"
                         + vInfo2Search + "%' OR UPPER(" + ContactHelper.NOME + " || ' ' || " + ContactHelper.COGNOME
                         + ") LIKE '%" + vInfo2Search + "%'").toSql();

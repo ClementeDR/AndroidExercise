@@ -17,14 +17,14 @@ import android.widget.ListView;
 
 import com.clementedirosa.weathercontentprovider.data.CityHelper;
 import com.clementedirosa.weathercontentprovider.data.DBHelper;
-import com.clementedirosa.weathercontentprovider.data.DialogAddTemperature;
-import com.clementedirosa.weathercontentprovider.data.DialogDeleteTemperature;
-import com.clementedirosa.weathercontentprovider.data.DialogUpdateTemperature;
+import com.clementedirosa.weathercontentprovider.dialog.DialogAddTemperature;
+import com.clementedirosa.weathercontentprovider.dialog.DialogDeleteTemperature;
+import com.clementedirosa.weathercontentprovider.dialog.DialogUpdateTemperature;
 import com.clementedirosa.weathercontentprovider.data.MyContentProvider;
-import com.clementedirosa.weathercontentprovider.data.TemperatureAdapter;
+import com.clementedirosa.weathercontentprovider.adapter.TemperatureAdapter;
 import com.clementedirosa.weathercontentprovider.data.TemperatureHelper;
 
-public class InfoActivity extends AppCompatActivity implements  LoaderManager.LoaderCallbacks<Cursor>, DialogAddTemperature.IOAddTemperature, DialogUpdateTemperature.IOUpdateTemperature, DialogDeleteTemperature.IODeleteTemperature {
+public class InfoActivity extends AppCompatActivity implements  LoaderManager.LoaderCallbacks<Cursor>, DialogAddTemperature.IAddTemperature, DialogUpdateTemperature.IUpdateTemperature, DialogDeleteTemperature.IDeleteTemperature {
 
     long mCityID;
     private ListView mTemperatureList;

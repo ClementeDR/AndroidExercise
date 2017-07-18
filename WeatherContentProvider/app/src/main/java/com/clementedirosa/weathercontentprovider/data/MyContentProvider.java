@@ -10,7 +10,6 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 
 /**
  * Created by clementedirosa on 13/01/2017.
@@ -111,8 +110,6 @@ public class MyContentProvider extends ContentProvider{
 
         long vID = 0;
         Uri vUri;
-
-        Log.d("Im in", "im in");
 
         switch (vUriType){
             case CITY:

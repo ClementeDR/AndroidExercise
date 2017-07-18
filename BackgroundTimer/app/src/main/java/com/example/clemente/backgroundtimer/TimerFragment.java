@@ -21,6 +21,9 @@ public class TimerFragment extends Fragment {
     private static final String TAG = "timerFrag";
     MyTimer myTimer;
     MyAsyncTimer mMyAsync;
+//    Button test;
+
+    TimerFede mFede;
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
@@ -122,10 +125,25 @@ public class TimerFragment extends Fragment {
 //        vTh.start();
 
 
+
         mMyAsync = new MyAsyncTimer();
-        mMyAsync.execute();
+//        mMyAsync.execute();
+
+        mFede = new TimerFede(this, 0, 0);
+        Thread vTh = new Thread(mFede);
+        vTh.start();
+
     }
 
+    public void start(){
+//        mMyAsync.cancel(true);
+//        Log.d(TAG, "start: Cancell");
+//
+//        mMyAsync = new MyAsyncTimer();
+//        mMyAsync.execute();
+
+        mFede.lap();
+    }
 
 
     private void onTimerValue(String aTime){
@@ -166,6 +184,15 @@ public class TimerFragment extends Fragment {
 //            onTimerValue("" + hour + ":" + minutes + ":" + tempValue);
 
             Log.d(TAG, "onProgressUpdate: " + values[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String aS) {
+
+            Log.d(TAG, "onPostExecute: " + aS);
+
+
+            super.onPostExecute(aS);
         }
 
     }

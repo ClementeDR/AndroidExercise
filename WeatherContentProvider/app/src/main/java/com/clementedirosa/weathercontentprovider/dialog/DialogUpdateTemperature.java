@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.clementedirosa.weathercontentprovider.R;
 import com.clementedirosa.weathercontentprovider.data.MyContentProvider;
@@ -43,6 +44,7 @@ public class DialogUpdateTemperature extends DialogFragment {
         vFrag.setArguments(vBundle);
         return vFrag;
     }
+
 
     public interface IUpdateTemperature {
         void update(long aTempID, float aTemperature);
@@ -88,7 +90,11 @@ public class DialogUpdateTemperature extends DialogFragment {
                 .setPositiveButton("SI", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        mListener.update(mPosition, Float.parseFloat(mTemperatureText.getText().toString().replace(",",".")));
+                        if (!mTemperatureText.getText().toString().isEmpty() && isNumeric(mTemperatureText.getText().toString())) {
+                            mListener.update(mPosition, Float.parseFloat(mTemperatureText.getText().toString().replace(",", ".")));
+                        } else  {
+                            Toast.makeText(getContext(), "Temperatura nulla", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 })
                 .setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -111,5 +117,11 @@ public class DialogUpdateTemperature extends DialogFragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+
+    public static boolean isNumeric(String str)
+    {
+        return str.matches("'+'?\\d");  //match a number with optional '-' and decimal.
     }
 }

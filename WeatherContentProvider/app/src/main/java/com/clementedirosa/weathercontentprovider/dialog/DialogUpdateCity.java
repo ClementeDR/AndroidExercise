@@ -12,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.clementedirosa.weathercontentprovider.R;
 import com.clementedirosa.weathercontentprovider.data.CityHelper;
@@ -35,6 +36,7 @@ public class DialogUpdateCity extends DialogFragment {
         vFrag.setArguments(vBundle);
         return vFrag;
     }
+
 
     public interface IUpdateCity {
         void update(long aID, String aName);
@@ -92,7 +94,11 @@ public class DialogUpdateCity extends DialogFragment {
                 .setPositiveButton("SALVA", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        mListener.update(mPosition, mCityName.getText().toString());
+                        if (!mCityName.getText().toString().isEmpty()) {
+                            mListener.update(mPosition, mCityName.getText().toString());
+                        } else {
+                            Toast.makeText(getContext(), "Nome Nullo", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 })
                 .setNeutralButton("Elimina", new DialogInterface.OnClickListener() {

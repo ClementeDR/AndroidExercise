@@ -15,7 +15,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".InfoActivity"></activity>
+        <activity android:name=".InfoActivity">
+        </activity>
         <provider
             android:authorities="com.clementedirosa.weathercontentprovider.data.contentprovider"
             android:name=".data.MyContentProvider"

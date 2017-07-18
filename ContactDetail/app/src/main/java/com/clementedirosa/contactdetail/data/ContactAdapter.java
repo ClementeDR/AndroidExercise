@@ -15,15 +15,21 @@ import com.clementedirosa.contactdetail.R;
  * Created by clementedirosa on 19/01/2017.
  */
 public class ContactAdapter extends CursorAdapter {
+    private ViewHolder mViewHolder;
 
     public ContactAdapter(Context aContext, Cursor aCursor){
         super(aContext,aCursor, false);
     }
 
-    class ViewHolder{
+    public  class ViewHolder{
         TextView mTxt_name, mTxt_surname;
         ImageView mImage;
+
+        public String getName(){
+            return mTxt_name.getText().toString();
+        }
     }
+
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {

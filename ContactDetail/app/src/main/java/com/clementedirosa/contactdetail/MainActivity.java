@@ -55,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         vList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ContactAdapter.ViewHolder vHolder = (ContactAdapter.ViewHolder)view.getTag();
+                Log.d("TAG", "onItemClick: " + vHolder.getName());
                 Bundle vBundle = new Bundle();
                 vBundle.putLong(ITEM_ID, id);
                 startActivity(new Intent(MainActivity.this, DetailActivity.class).putExtras(vBundle));

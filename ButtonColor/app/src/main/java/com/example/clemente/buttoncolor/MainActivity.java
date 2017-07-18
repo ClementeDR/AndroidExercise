@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements FragmentColor.IOU
         if(mButtonFragment == null){
             mButtonFragment = ButtonFragment.getInstance();
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.button_container, mButtonFragment, TAG_FRAGMENT)
+                    .replace(R.id.button_container, mButtonFragment, TAG_FRAGMENT)
                     .commit();
         }
 

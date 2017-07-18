@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.clementedirosa.weathercontentprovider.R;
 
@@ -90,7 +91,11 @@ public class DialogAddTemperature extends DialogFragment {
                 .setPositiveButton("SI", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        mListener.yes(Float.parseFloat(mTemperatureText.getText().toString()), mDate, getArguments().getLong(CITY_ID));
+                        if (!mTemperatureText.getText().toString().isEmpty() &&  isNumeric(mTemperatureText.getText().toString())) {
+                            mListener.yes(Float.parseFloat(mTemperatureText.getText().toString()), mDate, getArguments().getLong(CITY_ID));
+                        } else  {
+                            Toast.makeText(getContext(), "Temperatura nulla", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 })
                 .setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -107,5 +112,10 @@ public class DialogAddTemperature extends DialogFragment {
         super.onSaveInstanceState(outState);
         outState.putString(CITY_NAME, mTemperatureText.getText().toString());
         outState.putLong(DATE, mDate);
+    }
+
+    public static boolean isNumeric(String str)
+    {
+        return str.matches("-?\\d+(\\.?\\d+)?");  //match a number with optional '-' and decimal.
     }
 }

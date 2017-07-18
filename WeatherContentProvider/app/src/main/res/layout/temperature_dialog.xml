@@ -13,8 +13,8 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
         android:ems="10"
         android:id="@+id/temperatureEditText"
-        android:hint="10°" />
+        android:hint="10°"
+        android:inputType="number|numberSigned|numberDecimal"/>
 </LinearLayout>
